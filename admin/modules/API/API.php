@@ -9,16 +9,25 @@ class API extends CodonModule
 	
 	public function index()
 		{
-			$this->show('api/api_main.php');
-			$filename = $_SERVER['DOCUMENT_ROOT'].'/admin/templates/api/api.php';
-			
-			if(file_exists($filename))
+			$revision = trim(file_get_contents(CORE_PATH.'/version'));
+			if($revision != 'simpilot 5.5.2')
 				{
-					$this->render('api/api.php');
+					echo '<center>phpVMS Version Installed Is Not Compatible With This Module!</center><br />';
+					echo '<center>phpVMS Version Installed: '.$revision.'</center>';
 				}
 			else
 				{
-					echo'No Published File Yet';
+					$this->show('api/api_main.php');
+					$filename = $_SERVER['DOCUMENT_ROOT'].'/admin/templates/api/api.php';
+			
+					if(file_exists($filename))
+						{
+							$this->render('api/api.php');
+						}
+					else	
+						{
+							echo'No Published File Yet';
+						}
 				}
 		}
 	
